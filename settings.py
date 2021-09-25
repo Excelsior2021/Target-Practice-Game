@@ -10,7 +10,7 @@ class Settings():
         self.bg_colour = (230, 230, 230)
 
         #Bullet settings
-        self.bullet_misses = 10
+        self.target_misses = 10
 
         #Target settings
         self.target_direction = 1
