@@ -84,7 +84,6 @@ def check_bullet_target_collisions(settings, stats, screen, target, bullets, bul
                 if len(bullets_target) == 30:
                     level_up(settings)
                     bullets_target.clear()
-                    #hud.prep_hits()
                     stats.reset_stats()
                     
     elif not pygame.sprite.spritecollideany(target, bullets):
@@ -92,6 +91,7 @@ def check_bullet_target_collisions(settings, stats, screen, target, bullets, bul
             if bullet.rect.right >= screen_rect.right:
                 bullets.remove(bullet)
                 stats.bullets_left -= 1
+                hud.prep_misses()
 
 def game_over(screen, stats):
     go = GameOver(screen)

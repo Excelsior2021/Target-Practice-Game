@@ -8,5 +8,5 @@ class GameStats():
 
     def reset_stats(self):
         '''Rest game stats'''
-        self.bullets_left = self.settings.target_misses
+        self.bullets_left = self.settings.target_misses_allowed
         self.bullets_target.clear()

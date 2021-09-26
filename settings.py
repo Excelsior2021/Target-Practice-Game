@@ -10,7 +10,7 @@ class Settings():
         self.bg_colour = (230, 230, 230)
 
         #Bullet settings
-        self.target_misses = 10
+        self.target_misses_allowed = 10
 
         #Target settings
         self.target_direction = 1
@@ -20,7 +20,7 @@ class Settings():
     def initialise_dynamic_settings(self):
         '''Initialise dynamic game settings'''
         #Ship settings
-        self.ship_speed = 1
+        self.ship_speed = 0.5
 
         #Target settings
         self.target_speed = 0.1

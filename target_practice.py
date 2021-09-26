@@ -9,7 +9,6 @@ from game_stats import GameStats
 from button import Button
 from heads_up_display import HUD
 
-
 def run_game():
     '''Initialise game and create screen'''
     pygame.init()
@@ -36,7 +35,7 @@ def run_game():
 
         #Checks
 
-        print(stats.bullets_left)
+        #print(stats.bullets_left)
         #print(len(bullets))
         #print(len(bullets_target))
         #print(settings.target_speed)
