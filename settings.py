@@ -13,7 +13,13 @@ class Settings():
         self.target_misses_allowed = 10
 
         #Target settings
+        self.target_width = 10
+        self.target_height = 100
         self.target_direction = 1
+
+        #Miss line settings
+        self.miss_line_width = 5
+        self.miss_line_height = self.screen_depth
 
         self.initialise_dynamic_settings()
 

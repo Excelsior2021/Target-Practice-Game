@@ -8,6 +8,7 @@ import game_functions as gf
 from game_stats import GameStats
 from button import Button
 from heads_up_display import HUD
+from miss_line import MissLine
 
 def run_game():
     '''Initialise game and create screen'''
@@ -23,6 +24,7 @@ def run_game():
     stats = GameStats(settings, bullets_target)
     play_button = Button(screen, 'Play')
     hud = HUD(screen, settings, stats, bullets_target)
+    m_line = MissLine(settings, screen)
 
     while True:
 
@@ -30,8 +32,8 @@ def run_game():
 
         if stats.game_active:       
             ship.update_position(settings)
-            gf.check_bullet_target_collisions(settings, stats, screen, target, bullets, bullets_target, hud)
-        gf.update_screen(settings, screen, stats, ship, bullets, target, play_button, hud)
+            gf.check_bullet_target_collisions(settings, stats, screen, target, bullets, bullets_target, hud, m_line)
+        gf.update_screen(settings, screen, stats, ship, bullets, target, play_button, hud, m_line)
 
         #Checks
 

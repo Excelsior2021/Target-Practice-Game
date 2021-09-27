@@ -7,11 +7,11 @@ class Target():
         self.screen = screen
         self.settings = settings
         self.screen_rect = screen.get_rect()
-        self.target_width = 10
-        self.target_height = 100
-        self.target_colour = (255, 0, 0)
+        self.target_width = settings.target_width
+        self.target_height = settings.target_height
+        self.target_colour = (0, 255, 0)
 
-        #Create target rect and set position
+        #Create rect and set position
         self.rect = pygame.Rect(0,0 , self.target_width, self.target_height)
         self.rect.centery = self.screen_rect.centery
         self.rect.right = self.screen_rect.right

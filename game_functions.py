@@ -30,6 +30,7 @@ def start_game(stats, bullets, hud):
     stats.reset_stats()
     bullets.empty()
     hud.prep_hits()
+    hud.prep_misses()
     stats.game_active = True
 
 def check_keydown_events(event, screen, ship, stats, bullets, hud):
@@ -72,7 +73,7 @@ def update_target(settings, target):
 
     target.update_target()
 
-def check_bullet_target_collisions(settings, stats, screen, target, bullets, bullets_target, hud):
+def check_bullet_target_collisions(settings, stats, screen, target, bullets, bullets_target, hud, m_line):
     '''Respond to bullet-target collisiosn'''
     screen_rect = screen.get_rect()
     if pygame.sprite.spritecollideany(target, bullets):
@@ -92,6 +93,7 @@ def check_bullet_target_collisions(settings, stats, screen, target, bullets, bul
                 bullets.remove(bullet)
                 stats.bullets_left -= 1
                 hud.prep_misses()
+                m_line.draw_miss_line()
 
 def game_over(screen, stats):
     go = GameOver(screen)
@@ -100,12 +102,13 @@ def game_over(screen, stats):
         go.blitme()
         stats.reset_stats()
 
-def update_screen(settings, screen, stats, ship, bullets, target, play_button, hud):
+def update_screen(settings, screen, stats, ship, bullets, target, play_button, hud, m_line):
     '''Update screen elements'''
     screen.fill(settings.bg_colour)
     update_bullets(settings, bullets)
     update_target(settings, target)
     ship.blitme()
+    #m_line.draw_miss_line()
     target.draw_target()
     hud.show_info()
     game_over(screen, stats)
