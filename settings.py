@@ -30,8 +30,4 @@ class Settings():
 
         #Target settings
         self.target_speed = 0.1
-        
-    def increase_speed(self):
-        self.target_speed += 0.1
-        self.ship_speed *= 1.1
 

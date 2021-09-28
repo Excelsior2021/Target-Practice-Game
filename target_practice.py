@@ -32,7 +32,8 @@ def run_game():
 
         if stats.game_active:       
             ship.update_position(settings)
-            gf.check_bullet_target_collisions(settings, stats, screen, target, bullets, bullets_target, hud, m_line)
+            gf.check_bullet_target_collisions(settings, stats, target, bullets, bullets_target, hud)
+            gf.check_bullet_screen_edge_collision(stats, screen, target, bullets, hud)
         gf.update_screen(settings, screen, stats, ship, bullets, target, play_button, hud, m_line)
 
         #Checks

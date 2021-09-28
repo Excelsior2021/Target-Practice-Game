@@ -1,5 +1,6 @@
 import pygame
 import sys
+from time import process_time
 
 from bullet import Bullet
 from game_over import GameOver
@@ -23,7 +24,6 @@ def check_play_button(settings, stats, bullets, play_button, mouse_x, mouse_y, h
     if button_clicked and not stats.game_active:
         start_game(stats, bullets, hud)
         settings.initialise_dynamic_settings()
-
 
 def start_game(stats, bullets, hud):
     '''Starts game'''
@@ -55,9 +55,6 @@ def check_keyup_events(event, ship):
     if event.key == pygame.K_DOWN:
         ship.moving_down = False
 
-def level_up(settings):
-    settings.increase_speed()
-
 def update_bullets(settings, bullets):
     for bullet in bullets.sprites():
         bullet.update_position()
@@ -73,27 +70,31 @@ def update_target(settings, target):
 
     target.update_target()
 
-def check_bullet_target_collisions(settings, stats, screen, target, bullets, bullets_target, hud, m_line):
+def check_bullet_target_collisions(settings, stats, target, bullets, bullets_target, hud):
     '''Respond to bullet-target collisiosn'''
-    screen_rect = screen.get_rect()
     if pygame.sprite.spritecollideany(target, bullets):
         for bullet in bullets.copy():
             if bullet.rect.right >= target.rect.left:
                 bullets_target.append(bullet)
                 bullets.remove(bullet)
                 hud.prep_hits()
+                hud.prep_misses()
                 if len(bullets_target) == 30:
-                    level_up(settings)
                     bullets_target.clear()
                     stats.reset_stats()
-                    
-    elif not pygame.sprite.spritecollideany(target, bullets):
+
+def check_bullet_screen_edge_collision(stats, screen, target, bullets, hud):
+    screen_rect = screen.get_rect()          
+    if not pygame.sprite.spritecollideany(target, bullets):
         for bullet in bullets.copy():
             if bullet.rect.right >= screen_rect.right:
                 bullets.remove(bullet)
                 stats.bullets_left -= 1
                 hud.prep_misses()
-                m_line.draw_miss_line()
+                #m_line.draw_miss_line()
+                return True
+            else:
+                return False
 
 def game_over(screen, stats):
     go = GameOver(screen)
@@ -108,7 +109,9 @@ def update_screen(settings, screen, stats, ship, bullets, target, play_button, h
     update_bullets(settings, bullets)
     update_target(settings, target)
     ship.blitme()
-    #m_line.draw_miss_line()
+    if check_bullet_screen_edge_collision == True:
+        m_line.draw_miss_line()
+        process_time(2)
     target.draw_target()
     hud.show_info()
     game_over(screen, stats)
