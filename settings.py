@@ -8,14 +8,18 @@ class Settings():
         self.screen_width = 600
         self.screen_depth = 600
         self.bg_colour = (230, 230, 230)
+        
+        #Ship settings
+        self.ship_speed = 0.5
 
         #Bullet settings
-        self.target_misses_allowed = 10
+        self.target_misses_allowed = 5
 
         #Target settings
+        self.target_hits = 10
         self.target_width = 10
-        self.target_height = 100
         self.target_direction = 1
+        self.target_speed = 0.1
 
         #Miss line settings
         self.miss_line_width = 5
@@ -25,9 +29,5 @@ class Settings():
 
     def initialise_dynamic_settings(self):
         '''Initialise dynamic game settings'''
-        #Ship settings
-        self.ship_speed = 0.5
-
         #Target settings
-        self.target_speed = 0.1
-
+        self.target_height = 300

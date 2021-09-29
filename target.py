@@ -7,12 +7,12 @@ class Target():
         self.screen = screen
         self.settings = settings
         self.screen_rect = screen.get_rect()
-        self.target_width = settings.target_width
-        self.target_height = settings.target_height
-        self.target_colour = (0, 255, 0)
+        self.width = settings.target_width
+        self.height = settings.target_height
+        self.colour = (255, 0, 0)
 
         #Create rect and set position
-        self.rect = pygame.Rect(0,0 , self.target_width, self.target_height)
+        self.rect = pygame.Rect(0,0 , self.width, self.height)
         self.rect.centery = self.screen_rect.centery
         self.rect.right = self.screen_rect.right
 
@@ -24,6 +24,15 @@ class Target():
                             
         self.rect.centery = self.centery
 
+    def reduce_target_height(self):
+        self.rect.inflate_ip(0, -20)
+        self.height -= 20
+
+    def initialise_target(self):
+        self.rect.inflate_ip(0, 300 - self.height)
+        self.height = self.settings.target_height
+        self.centery = self.screen_rect.centery
+
     def check_edges(self):
         if self.rect.top == self.screen_rect.top:
             return True
@@ -32,4 +41,4 @@ class Target():
 
     def draw_target(self):
         '''Draw target to the screen'''
-        pygame.draw.rect(self.screen, self.target_colour, self.rect)
+        pygame.draw.rect(self.screen, self.colour, self.rect)

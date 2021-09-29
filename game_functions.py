@@ -1,39 +1,40 @@
 import pygame
 import sys
-from time import process_time
 
 from bullet import Bullet
 from game_over import GameOver
+#from target import Target
 
-def check_events(settings, stats, ship, screen, bullets, play_button, hud):
+def check_events(settings, screen, stats, ship, target, bullets, play_button, hud):
     '''Checks for keyboard and mouse events'''
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
         if event.type == pygame.KEYDOWN:
-            check_keydown_events(event, screen, ship, stats, bullets, hud)
+            check_keydown_events(event, screen, ship, target, stats, bullets, hud)
         if event.type == pygame.KEYUP:
             check_keyup_events(event, ship)
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
             check_play_button(settings, stats, bullets, play_button, mouse_x, mouse_y, hud)
 
-def check_play_button(settings, stats, bullets, play_button, mouse_x, mouse_y, hud):
+def check_play_button(settings, stats, target, bullets, play_button, mouse_x, mouse_y, hud):
     '''Starts new game when player clicks play'''
     button_clicked = play_button.rect.collidepoint(mouse_x, mouse_y)
     if button_clicked and not stats.game_active:
-        start_game(stats, bullets, hud)
         settings.initialise_dynamic_settings()
+        start_game(stats, target, bullets, hud)
 
-def start_game(stats, bullets, hud):
+def start_game(stats, target, bullets, hud):
     '''Starts game'''
     stats.reset_stats()
     bullets.empty()
     hud.prep_hits()
     hud.prep_misses()
+    target.initialise_target()
     stats.game_active = True
 
-def check_keydown_events(event, screen, ship, stats, bullets, hud):
+def check_keydown_events(event, screen, ship, target, stats, bullets, hud):
     '''Checks for key presses'''
     if event.key == pygame.K_UP:
         ship.moving_up = True
@@ -46,7 +47,7 @@ def check_keydown_events(event, screen, ship, stats, bullets, hud):
         sys.exit()
     if event.key == pygame.K_p:
         if stats.game_active == False:
-            start_game(stats, bullets, hud)
+            start_game(stats, target, bullets, hud)
 
 def check_keyup_events(event, ship):
     '''Checks for key releases'''
@@ -79,9 +80,10 @@ def check_bullet_target_collisions(settings, stats, target, bullets, bullets_tar
                 bullets.remove(bullet)
                 hud.prep_hits()
                 hud.prep_misses()
-                if len(bullets_target) == 30:
+                if len(bullets_target) == settings.target_hits:
                     bullets_target.clear()
                     stats.reset_stats()
+                    target.reduce_target_height()
 
 def check_bullet_screen_edge_collision(stats, screen, target, bullets, hud):
     screen_rect = screen.get_rect()          
@@ -101,7 +103,6 @@ def game_over(screen, stats):
     if stats.bullets_left == 0:
         stats.game_active = False
         go.blitme()
-        stats.reset_stats()
 
 def update_screen(settings, screen, stats, ship, bullets, target, play_button, hud, m_line):
     '''Update screen elements'''
@@ -111,7 +112,6 @@ def update_screen(settings, screen, stats, ship, bullets, target, play_button, h
     ship.blitme()
     if check_bullet_screen_edge_collision == True:
         m_line.draw_miss_line()
-        process_time(2)
     target.draw_target()
     hud.show_info()
     game_over(screen, stats)
