@@ -16,7 +16,7 @@ def check_events(settings, screen, stats, ship, target, bullets, play_button, hu
             check_keyup_events(event, ship)
         if event.type == pygame.MOUSEBUTTONDOWN:
             mouse_x, mouse_y = pygame.mouse.get_pos()
-            check_play_button(settings, stats, bullets, play_button, mouse_x, mouse_y, hud)
+            check_play_button(settings, stats, target, bullets, play_button, mouse_x, mouse_y, hud)
 
 def check_play_button(settings, stats, target, bullets, play_button, mouse_x, mouse_y, hud):
     '''Starts new game when player clicks play'''
@@ -31,6 +31,8 @@ def start_game(stats, target, bullets, hud):
     bullets.empty()
     hud.prep_hits()
     hud.prep_misses()
+    stats.stage = 1
+    hud.prep_stage()
     target.initialise_target()
     stats.game_active = True
 
@@ -81,9 +83,16 @@ def check_bullet_target_collisions(settings, stats, target, bullets, bullets_tar
                 hud.prep_hits()
                 hud.prep_misses()
                 if len(bullets_target) == settings.target_hits:
-                    bullets_target.clear()
-                    stats.reset_stats()
-                    target.reduce_target_height()
+                    level_up(bullets_target, stats, target, hud)
+
+def level_up(bullets_target, stats, target, hud):
+    bullets_target.clear()
+    stats.reset_stats()
+    stats.stage += 1
+    hud.prep_stage()
+    hud.prep_misses()
+    target.reduce_target_height()
+
 
 def check_bullet_screen_edge_collision(stats, screen, target, bullets, hud):
     screen_rect = screen.get_rect()          

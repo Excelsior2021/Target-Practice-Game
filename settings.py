@@ -10,7 +10,7 @@ class Settings():
         self.bg_colour = (230, 230, 230)
         
         #Ship settings
-        self.ship_speed = 0.5
+        self.ship_speed = 1
 
         #Bullet settings
         self.target_misses_allowed = 5
@@ -19,7 +19,7 @@ class Settings():
         self.target_hits = 10
         self.target_width = 10
         self.target_direction = 1
-        self.target_speed = 0.1
+        self.target_speed = 0.3
 
         #Miss line settings
         self.miss_line_width = 5

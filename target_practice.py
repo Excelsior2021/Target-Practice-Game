@@ -10,7 +10,7 @@ from button import Button
 from heads_up_display import HUD
 from miss_line import MissLine
 
-def run_game():
+def run_game(): 
     '''Initialise game and create screen'''
     pygame.init()
     settings = Settings()
@@ -20,8 +20,8 @@ def run_game():
     bullets_target = []
     ship = Ship(screen)
     bullets = Group()
-    target = Target(settings, screen)
-    stats = GameStats(settings, target, bullets_target)
+    stats = GameStats(settings, bullets_target)
+    target = Target(settings, screen, stats)
     play_button = Button(screen, 'Play')
     hud = HUD(screen, settings, stats, bullets_target)
     m_line = MissLine(settings, screen)
@@ -45,5 +45,6 @@ def run_game():
         #print(settings.target_speed)
         #print(settings.ship_speed)
         #print(target.height)
+        #print(stats.stage)
 
 run_game()   
