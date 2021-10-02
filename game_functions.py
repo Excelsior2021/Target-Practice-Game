@@ -93,8 +93,7 @@ def level_up(bullets_target, stats, target, hud):
     hud.prep_misses()
     target.reduce_target_height()
 
-
-def check_bullet_screen_edge_collision(stats, screen, target, bullets, hud):
+def check_bullet_screen_edge_collision(stats, screen, target, bullets, hud, m_line):
     screen_rect = screen.get_rect()          
     if not pygame.sprite.spritecollideany(target, bullets):
         for bullet in bullets.copy():
@@ -103,9 +102,6 @@ def check_bullet_screen_edge_collision(stats, screen, target, bullets, hud):
                 stats.bullets_left -= 1
                 hud.prep_misses()
                 #m_line.draw_miss_line()
-                return True
-            else:
-                return False
 
 def game_over(screen, stats):
     go = GameOver(screen)
@@ -119,7 +115,7 @@ def update_screen(settings, screen, stats, ship, bullets, target, play_button, h
     update_bullets(settings, bullets)
     update_target(settings, target)
     ship.blitme()
-    if check_bullet_screen_edge_collision == True:
+    if check_bullet_screen_edge_collision:
         m_line.draw_miss_line()
     target.draw_target()
     hud.show_info()

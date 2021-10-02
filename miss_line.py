@@ -9,7 +9,7 @@ class MissLine():
         self.screen_rect = screen.get_rect()
         self.width = settings.miss_line_width
         self.height = settings.miss_line_height
-        self.colour = (255, 0, 0)
+        self.colour = (200, 153, 9)
 
         #Create rect and set position
         self.rect = pygame.Rect(0, 0, self.width, self.height)
