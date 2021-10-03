@@ -1,5 +1,3 @@
-import pygame
-
 class Settings():
     '''Sideway Shooter settings'''
     def __init__(self):
@@ -10,16 +8,17 @@ class Settings():
         self.bg_colour = (230, 230, 230)
         
         #Ship settings
-        self.ship_speed = 1
+        self.ship_speed = 12
 
         #Bullet settings
+        self.bullet_speed = 18
         self.target_misses_allowed = 5
-
+        
         #Target settings
         self.target_hits = 10
         self.target_width = 10
         self.target_direction = 1
-        self.target_speed = 0.3
+        self.target_speed = 5
 
         #Miss line settings
         self.miss_line_width = 5
