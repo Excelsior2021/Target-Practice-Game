@@ -79,6 +79,7 @@ def check_bullet_target_collisions(settings, stats, target, bullets, bullets_tar
             if bullet.rect.right >= target.rect.left:
                 bullets_target.append(bullet)
                 bullets.remove(bullet)
+                stats.total_hits += 1
                 hud.prep_hits()
                 hud.prep_misses()
                 if len(bullets_target) == settings.target_hits:
@@ -100,10 +101,11 @@ def check_bullet_screen_edge_collision(stats, screen, bullets, hud, m_line):
             m_line.bullet_screen_time = pygame.time.get_ticks()
             bullets.remove(bullet)
             stats.bullets_left -= 1
+            stats.total_misses += 1
             hud.prep_misses()
 
-def game_over(screen, stats):
-    go = GameOver(screen)
+def game_over(settings, screen, stats):
+    go = GameOver(settings, screen, stats)
     if stats.bullets_left == 0:
         stats.game_active = False
         go.blitme()
@@ -120,7 +122,7 @@ def update_screen(settings, screen, stats, ship, bullets, target, play_button, h
         m_line.flag = False
     target.draw_target()
     hud.show_info()
-    game_over(screen, stats)
+    game_over(settings, screen, stats)
     if not stats.game_active:
         play_button.draw_button()
     pygame.display.flip()

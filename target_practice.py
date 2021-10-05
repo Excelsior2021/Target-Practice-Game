@@ -32,6 +32,8 @@ def run_game():
     while True:
         current_time = pygame.time.get_ticks()
 
+        total_hits = 0
+
         gf.check_events(settings, screen, stats, ship, target, bullets, play_button, hud)
         if stats.game_active:       
             ship.update_position()
@@ -50,5 +52,6 @@ def run_game():
         #print(stats.stage)
         #print(bool(gf.check_bullet_screen_edge_collision))
         #print(current_time, bullet_screen_time)
+        # print(stats.total_hits)
 
 run_game()   

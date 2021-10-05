@@ -7,8 +7,8 @@ class GameStats():
         self.reset_stats()
         self.game_active = False
         self.stage = 1
-
-
+        self.total_hits = 0
+        self.total_misses = 0
 
     def reset_stats(self):
         '''Rest game stats'''
