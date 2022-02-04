@@ -54,4 +54,4 @@ def run_game():
         #print(current_time, bullet_screen_time)
         # print(stats.total_hits)
 
-run_game()   
+run_game()

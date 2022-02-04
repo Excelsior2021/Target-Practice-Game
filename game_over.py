@@ -19,7 +19,7 @@ class GameOver():
 
         #Font settings
         self.text_colour = (0, 0, 0)
-        self.font = pygame.font.SysFont(None, 32)
+        self.font = pygame.font.SysFont('arialblack', 20)
 
         self.prep_stage()
         self.prep_total_hits()
